@@ -1,8 +1,14 @@
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import {
+    createBrowserRouter,
+    Navigate,
+    Outlet,
+    RouterProvider,
+} from "react-router-dom";
 import Produtos from "./Componentes/Produtos";
 import Footer from "./Componentes/Footer";
 import Header from "./Componentes/Header";
 import Contato from "./Componentes/Contato";
+import Produto from "./Componentes/Produto";
 import "./index.css";
 
 const App = () => {
@@ -19,10 +25,19 @@ const App = () => {
     const RouterChildren = createBrowserRouter([
         {
             path: "/",
+            element: (
+                <>
+                    <Navigate to={"/home"} />
+                </>
+            ),
+        },
+        {
+            path: "/home",
             element: <MainRouter />,
             children: [
-                { path: "/", element: <Produtos /> },
-                { path: "/contato", element: <Contato /> },
+                { path: "/home/produtos", element: <Produtos /> },
+                { path: "/home/contato", element: <Contato /> },
+                { path: "/home/produtos/produto/:id", element: <Produto /> },
             ],
         },
     ]);
