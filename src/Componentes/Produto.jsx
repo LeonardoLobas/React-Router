@@ -13,10 +13,10 @@ const Produto = () => {
             try {
                 setLoading(true);
                 const response = await fetch(url);
-                const json = response.json();
+                const json = await response.json();
                 setProduto(json);
             } catch (erro) {
-                setError("Um erro aconteceu");
+                setError(erro);
             } finally {
                 setLoading(false);
             }
@@ -24,12 +24,19 @@ const Produto = () => {
         fetchProduto(`https://ranekapi.origamid.dev/json/api/produto/${id}`);
     }, [id]);
     if (loading) return <div>Carregando...</div>;
-    if (error) return <p>Error</p>;
+    if (error) return <p>{Error}</p>;
     if (produto === null) return null;
     return (
-        <div className={styles.Produto}>
-            <h1>Produto</h1>
-        </div>
+        <section className={styles.Produto + "animaLeft"}>
+            {produto.fotos.map((foto) => (
+                <img key={foto.src} src={foto.src} alt={foto.titulo} />
+            ))}
+            <div>
+                <h1>{produto.nome}</h1>
+                <span className={styles.preco}>R${produto.preco}</span>
+                <p className={styles.descricao}>{produto.descricao}</p>
+            </div>
+        </section>
     );
 };
 
