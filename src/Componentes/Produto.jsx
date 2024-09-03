@@ -27,7 +27,7 @@ const Produto = () => {
     if (error) return <p>{Error}</p>;
     if (produto === null) return null;
     return (
-        <section className={styles.Produto + "animaLeft"}>
+        <section className={styles.produto + " animaLeft"}>
             {produto.fotos.map((foto) => (
                 <img key={foto.src} src={foto.src} alt={foto.titulo} />
             ))}
